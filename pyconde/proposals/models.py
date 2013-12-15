@@ -47,9 +47,9 @@ class TimeSlot(models.Model):
 class AbstractProposal(models.Model):
     """
     A proposal represents a possible future session as it will be used before
-    and during the review process. It has one mandatory speaker and possible
-    additional speakers as well as a certain kind (tutorial, session, ...),
-    audience level and proposed duration.
+    and during the review process. It has one mandatory speaker, possible
+    additional speakers, a type ("kind") (tutorial, session, ...),
+    audience skill level and proposed duration.
     """
     conference = models.ForeignKey("conference.Conference",
         verbose_name="conference")
