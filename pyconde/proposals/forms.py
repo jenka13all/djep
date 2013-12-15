@@ -107,7 +107,7 @@ class ProposalSubmissionForm(forms.ModelForm):
             form.fields['track'] = forms.ModelChoiceField(label=_("Track"), required=True, initial=None,
                 queryset=tracks)
         if 'description' in form.fields:
-            form.fields['description'].help_text = _("""Up to around 50 words. Appears in the printed programem. <br />This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> input.""")
+            form.fields['description'].help_text = _("""Up to around 50 words. Appears in the printed program. <br />This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> input.""")
             form.fields['description'].validators = [validators.MaxLengthValidator(2000)]
         if 'abstract' in self.fields:
             form.fields['abstract'].help_text = _("""Describe your presentation in detail. This is what will be reviewed during the review phase.<br />This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> input.""")
@@ -132,13 +132,13 @@ class ProposalSubmissionForm(forms.ModelForm):
         cleaned_data = super(ProposalSubmissionForm, self).clean()
         kind = cleaned_data.get('kind')
         if kind is not None and not kind.accepts_proposals():
-            raise forms.ValidationError(_("The selected session kind doesn't accept any proposals anymore."))
+            raise forms.ValidationError(_("The selected session type isn't accepting any more proposals."))
         return cleaned_data
 
     def clean_audience_level(self):
         value = self.cleaned_data["audience_level"]
         if value.conference != current_conference():
-            raise forms.ValidationError(_("Please select a valid audience level."))
+            raise forms.ValidationError(_("Please select a valid audience skill-level."))
         return value
 
     def clean_duration(self):
@@ -150,7 +150,7 @@ class ProposalSubmissionForm(forms.ModelForm):
     def clean_kind(self):
         value = self.cleaned_data["kind"]
         if value.conference != current_conference():
-            raise forms.ValidationError(_("Please select a valid session kind."))
+            raise forms.ValidationError(_("Please select a valid session type."))
         return value
 
 
